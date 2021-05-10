@@ -1,5 +1,3 @@
-# bank-fluffly-backend
-
 <h1 align="center">Bank-fluffly-backend</h1>
 
 <p align="center">
