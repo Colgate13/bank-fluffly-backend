@@ -55,9 +55,9 @@ For acess SQLlite(Data base) -> install  [DBeaver](https://dbeaver.io/)
 }
 ```
 
-- **`GET /users/listAll`**: Essa rota deve retornar todos os usuarios cadastrados, ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!
+- **`GET /users/listAll`**: Essa rota deve retornar todos os usuarios cadastrados, ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
 
-```json PRECISA SER essa request para listar
+```json 
 {
 	"token": "123456789", 
 	"password": "84656505",
@@ -81,9 +81,9 @@ For acess SQLlite(Data base) -> install  [DBeaver](https://dbeaver.io/)
 	"keyFree": "84656505"
 }
 ```
-- **`GET acconts/listAll`**: Essa rota deve retornar todas as contas abertas, ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!
+- **`GET acconts/listAll`**: Essa rota deve retornar todas as contas abertas, ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
 
-```json PRECISA SER essa request para listar
+```json
 {
 	"token": "123456789", 
 	"password": "84656505",
@@ -112,7 +112,7 @@ headers:
 name          value         
 Authorization Bearer `token retornada na rota sessions` 
 ```
-- **`GET /acconts/listAllInternalmovement `**: Essa rota deve retornar todas os depositos e saques, depositos são do tipo `true` e saques do tipo `false`  , ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!
+- **`GET /acconts/listAllInternalmovement `**: Essa rota deve retornar todas os depositos e saques, depositos são do tipo `true` e saques do tipo `false`  , ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
 
 ```json PRECISA SER essa request para listar
 {
@@ -136,7 +136,7 @@ name          value
 Authorization Bearer `token retornada na rota sessions` 
 ```
 
-- **`GET /acconts/listAllTransactions  `**: Essa rota deve retornar todas as transações entre as contas, no retorno sender_keyFree é a keyFree que enviou o dinheiro, addressee_keyFree é a keyFree  que recebeu o dinheiro  , ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!
+- **`GET /acconts/listAllTransactions  `**: Essa rota deve retornar todas as transações entre as contas, no retorno sender_keyFree é a keyFree que enviou o dinheiro, addressee_keyFree é a keyFree  que recebeu o dinheiro  , ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
 
 ```json PRECISA SER essa request para listar
 {
