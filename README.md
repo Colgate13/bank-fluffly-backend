@@ -3,7 +3,7 @@
 <h1 align="center">Bank-fluffly-backend</h1>
 
 <p align="center">
-  <a href="#-Technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#technologies-">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-Project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-Installation and run">Installation and run</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-Usage programs">Usage programs</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
