@@ -72,7 +72,7 @@ For acess SQLlite(Data base) -> install  [DBeaver](https://dbeaver.io/)
 	"password": "84656505"
 }
 ```
-- **`POST /acconts/create`**: A rota deve receber  `password`, `interKey` e `keyFree` dentro do corpo da requisição, O keyFree será usado para outros usuarios enviarem dinheiro para essa accont, password vai ser necessario para realizar depositos, retiradas e transações :
+- **`POST /acconts/create`**: A rota deve receber  `password`, `interKey` e `keyFree` dentro do corpo da requisição, O keyFree será usado para outros usuarios enviarem dinheiro para essa accont, password vai ser necessario para realizar depositos, retiradas e transações, esse password não precisa ser o mesmo do user :
 
 ```json
 {
@@ -99,7 +99,7 @@ For acess SQLlite(Data base) -> install  [DBeaver](https://dbeaver.io/)
 }
 headers: 
 name          value         
-Authorization Bearer `token retornada na rota sessions` 
+Authorization Bearer `token retornado na rota sessions` 
 ```
 - **`POST /acconts/withdraw`**: A rota deve receber  `passwordAccont`e `value`, sacando valores da accont, podemos escolher qualquer valor :
 
@@ -110,7 +110,7 @@ Authorization Bearer `token retornada na rota sessions`
 }
 headers: 
 name          value         
-Authorization Bearer `token retornada na rota sessions` 
+Authorization Bearer `token retornado na rota sessions` 
 ```
 - **`GET /acconts/listAllInternalmovement `**: Essa rota deve retornar todas os depositos e saques, depositos são do tipo `true` e saques do tipo `false`  , ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
 
@@ -133,7 +133,7 @@ Authorization Bearer `token retornada na rota sessions`
 }
 headers: 
 name          value         
-Authorization Bearer `token retornada na rota sessions` 
+Authorization Bearer `token retornado na rota sessions` 
 ```
 
 - **`GET /acconts/listAllTransactions  `**: Essa rota deve retornar todas as transações entre as contas, no retorno sender_keyFree é a keyFree que enviou o dinheiro, addressee_keyFree é a keyFree  que recebeu o dinheiro  , ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
@@ -144,6 +144,8 @@ Authorization Bearer `token retornada na rota sessions`
 	"password": "84656505",
 	"id": "souAdmin"
 }
+```
+
 ## License
 
 MIT [LICENSE](LICENSE.md)
