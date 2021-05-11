@@ -1,10 +1,10 @@
 {
   "type": "postgres",
-  "host":  process.env.HOSTDB, // "localhost"
+  "host": "localhost",
   "port": 5432,
-  "username": process.env.USERDB,// "postgres"
-  "password": process.env.PASSWORDDB , // "docker"
-  "database": process.env.DATABASE, //  "bank"
+  "username": "postgres",
+  "password": "docker",
+  "database": "bank",
   "entities": [
     "./src/models/*.ts"
   ],
