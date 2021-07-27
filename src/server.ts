@@ -1,16 +1,16 @@
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';// PRECISA FICAR LOGO ABAIXO DO EXPRESS
 
+import cors from 'cors';
 import routes from './routes/index';
 import AppError from './errors/AppError';
-
 import './database';
 
 const PORT = process.env.PORT || 3131;
 const app = express();
 
+app.use(cors({ origin: process.env.MYIP }));
 app.use(express.json());
-
 app.use(routes);
 
 app.use((err: Error, request: Request, response: Response, _next: NextFunction) => {
