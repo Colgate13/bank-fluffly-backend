@@ -11,7 +11,7 @@ var AppError_1 = __importDefault(require("./errors/AppError"));
 require("./database");
 var PORT = process.env.PORT || 3131;
 var app = express_1.default();
-app.use(cors_1.default({ origin: process.env.MYIP }));
+app.use(cors_1.default());
 app.use(express_1.default.json());
 app.use(index_1.default);
 app.use(function (err, request, response, _next) {
