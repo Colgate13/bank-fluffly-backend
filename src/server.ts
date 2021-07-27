@@ -9,7 +9,7 @@ import './database';
 const PORT = process.env.PORT || 3131;
 const app = express();
 
-app.use(cors({ origin: process.env.MYIP }));
+app.use(cors());
 app.use(express.json());
 app.use(routes);
 
