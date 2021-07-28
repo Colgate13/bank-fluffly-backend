@@ -41,7 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var bcryptjs_1 = require("bcryptjs");
-var uuidv4_1 = require("uuidv4");
 var Accont_1 = __importDefault(require("../models/Accont"));
 var AccontRepository_1 = __importDefault(require("../repositorys/AccontRepository"));
 var AppError_1 = __importDefault(require("../errors/AppError"));
@@ -50,7 +49,7 @@ var CreateUserService = /** @class */ (function () {
     }
     // eslint-disable-next-line class-methods-use-this
     CreateUserService.prototype.execute = function (_a) {
-        var idUser = _a.idUser, interKey = _a.interKey, keyFree = _a.keyFree, password = _a.password;
+        var id = _a.id, interKey = _a.interKey, keyFree = _a.keyFree, password = _a.password;
         return __awaiter(this, void 0, void 0, function () {
             var accontRepository, checkAccontExists, checkKeyFreeExists, hashedPassword, hashedInterKey, accont;
             return __generator(this, function (_b) {
@@ -58,7 +57,7 @@ var CreateUserService = /** @class */ (function () {
                     case 0:
                         accontRepository = typeorm_1.getRepository(Accont_1.default);
                         return [4 /*yield*/, accontRepository.findOne({
-                                where: { id: idUser },
+                                where: { id: id },
                             })];
                     case 1:
                         checkAccontExists = _b.sent();
@@ -80,8 +79,7 @@ var CreateUserService = /** @class */ (function () {
                     case 4:
                         hashedInterKey = _b.sent();
                         accont = accontRepository.create({
-                            id: idUser,
-                            accont_id: uuidv4_1.uuid(),
+                            id: id,
                             interKey: hashedInterKey,
                             keyFree: keyFree,
                             password: hashedPassword,

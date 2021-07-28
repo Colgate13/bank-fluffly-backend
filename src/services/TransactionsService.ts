@@ -1,10 +1,8 @@
 import { getCustomRepository, getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
-import { uuid } from 'uuidv4';
 import AppError from '../errors/AppError';
 import TransactionsRepository from '../repositorys/TransactionsRepository';
 import Accont from '../models/Accont';
-
 import Transactions from '../models/Transactions';
 
 interface Request {// Tipagem dos tados que vamos receber
@@ -93,7 +91,6 @@ class TransactionsService {
     const transactionsRepository = getRepository(Transactions);
 
     const transaction = transactionsRepository.create({
-      id: uuid(),
       sender_keyFree,
       addressee_keyFree: keyFree,
       message,
