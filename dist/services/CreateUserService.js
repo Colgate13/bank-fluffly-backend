@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var bcryptjs_1 = require("bcryptjs");
+var uuidv4_1 = require("uuidv4");
 var User_1 = __importDefault(require("../models/User"));
 var UserRepository_1 = __importDefault(require("../repositorys/UserRepository"));
 var AppError_1 = __importDefault(require("../errors/AppError"));
@@ -70,6 +71,7 @@ var CreateUserService = /** @class */ (function () {
                         user = usersRepository.create({
                             name: name,
                             email: email,
+                            id: uuidv4_1.uuid(),
                             password: hashedPassword,
                         });
                         return [4 /*yield*/, usersRepository.save(user)];

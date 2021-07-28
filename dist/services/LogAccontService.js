@@ -40,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
+var uuidv4_1 = require("uuidv4");
 var Internalmovement_1 = __importDefault(require("../models/Internalmovement"));
 var LogAccontService = /** @class */ (function () {
     function LogAccontService() {
@@ -52,6 +53,7 @@ var LogAccontService = /** @class */ (function () {
             return __generator(this, function (_b) {
                 logAccontRepository = typeorm_1.getRepository(Internalmovement_1.default);
                 log = logAccontRepository.create({
+                    id: uuidv4_1.uuid(),
                     value: value,
                     accont_id: accont_id,
                     type: type,
