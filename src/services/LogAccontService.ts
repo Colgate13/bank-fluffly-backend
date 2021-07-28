@@ -1,4 +1,7 @@
 import { getRepository } from 'typeorm';
+
+import { uuid } from 'uuidv4';
+
 import LogTrade from '../models/Internalmovement';
 
 interface Request {// Tipagem dos tados que vamos receber
@@ -15,6 +18,7 @@ class LogAccontService {
     const logAccontRepository = getRepository(LogTrade);
 
     const log = logAccontRepository.create({
+      id: uuid(),
       value,
       accont_id,
       type,

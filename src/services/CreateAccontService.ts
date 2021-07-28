@@ -1,12 +1,13 @@
 import { getCustomRepository, getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
+import { uuid } from 'uuidv4';
 import Accont from '../models/Accont';
 import AccontRepository from '../repositorys/AccontRepository';
 
 import AppError from '../errors/AppError';
 
 interface Request {// Tipagem dos tados que vamos receber
-  id: string;
+  idUser: string;
   interKey: string;
   keyFree: string;
   password: string;
@@ -15,12 +16,12 @@ interface Request {// Tipagem dos tados que vamos receber
 class CreateUserService {
   // eslint-disable-next-line class-methods-use-this
   public async execute({
-    id, interKey, keyFree, password,
+    idUser, interKey, keyFree, password,
   }: Request): Promise<Accont> {
     const accontRepository = getRepository(Accont);
 
     const checkAccontExists = await accontRepository.findOne({
-      where: { id },
+      where: { id: idUser },
     });
 
     const checkKeyFreeExists = await accontRepository.findOne({
@@ -39,7 +40,8 @@ class CreateUserService {
     const hashedInterKey = await hash(interKey, 2);
 
     const accont = accontRepository.create({
-      id,
+      id: idUser,
+      accont_id: uuid(),
       interKey: hashedInterKey,
       keyFree,
       password: hashedPassword,
