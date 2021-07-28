@@ -44,40 +44,37 @@ var CreatedLogAccont1620515046249 = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')];
+                    case 0: return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
+                            name: 'internalmovement',
+                            columns: [
+                                {
+                                    name: 'accont_id',
+                                    type: 'uuid',
+                                    isPrimary: true,
+                                },
+                                {
+                                    name: 'id',
+                                    type: 'uuid',
+                                    isPrimary: true,
+                                    generationStrategy: 'uuid',
+                                    default: 'uuid_generate_v4()',
+                                },
+                                {
+                                    name: 'type',
+                                    type: 'boolean',
+                                },
+                                {
+                                    name: 'value',
+                                    type: 'varchar',
+                                },
+                                {
+                                    name: 'created_at',
+                                    type: 'timestamp',
+                                    default: 'now()',
+                                },
+                            ],
+                        }))];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
-                                name: 'internalmovement',
-                                columns: [
-                                    {
-                                        name: 'accont_id',
-                                        type: 'uuid',
-                                        isPrimary: true,
-                                    },
-                                    {
-                                        name: 'id',
-                                        type: 'uuid',
-                                        isPrimary: true,
-                                        generationStrategy: 'uuid',
-                                        default: 'uuid_generate_v4()',
-                                    },
-                                    {
-                                        name: 'type',
-                                        type: 'boolean',
-                                    },
-                                    {
-                                        name: 'value',
-                                        type: 'varchar',
-                                    },
-                                    {
-                                        name: 'created_at',
-                                        type: 'timestamp',
-                                        default: 'now()',
-                                    },
-                                ],
-                            }))];
-                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }

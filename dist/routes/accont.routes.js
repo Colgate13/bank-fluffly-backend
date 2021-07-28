@@ -54,7 +54,7 @@ accontRouter.post('/create', ensureAuthenticated_1.default, function (request, r
                 _a = request.body, password = _a.password, interKey = _a.interKey, keyFree = _a.keyFree;
                 createaccont = new CreateAccontService_1.default();
                 return [4 /*yield*/, createaccont.execute({
-                        id: request.user.id,
+                        idUser: request.user.id,
                         interKey: interKey,
                         keyFree: keyFree,
                         password: password,
