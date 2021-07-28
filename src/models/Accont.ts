@@ -12,7 +12,7 @@ class Acconts {
 
   @OneToOne(() => User)
   @JoinColumn({ name: 'id' })
-  id_: User;
+  id_: User
 
   @PrimaryColumn('uuid')
   accont_id: string;

@@ -41,7 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var bcryptjs_1 = require("bcryptjs");
-var uuidv4_1 = require("uuidv4");
 var AppError_1 = __importDefault(require("../errors/AppError"));
 var TransactionsRepository_1 = __importDefault(require("../repositorys/TransactionsRepository"));
 var Accont_1 = __importDefault(require("../models/Accont"));
@@ -119,7 +118,6 @@ var TransactionsService = /** @class */ (function () {
             return __generator(this, function (_b) {
                 transactionsRepository = typeorm_1.getRepository(Transactions_1.default);
                 transaction = transactionsRepository.create({
-                    id: uuidv4_1.uuid(),
                     sender_keyFree: sender_keyFree,
                     addressee_keyFree: keyFree,
                     message: message,

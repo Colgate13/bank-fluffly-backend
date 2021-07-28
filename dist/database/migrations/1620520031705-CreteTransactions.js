@@ -44,43 +44,46 @@ var CreteTransactions1620520031705 = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
-                            name: 'transactions',
-                            columns: [
-                                {
-                                    name: 'sender_keyFree',
-                                    type: 'varchar',
-                                    isPrimary: true,
-                                },
-                                {
-                                    name: 'addressee_keyFree',
-                                    type: 'varchar',
-                                    isPrimary: true,
-                                },
-                                {
-                                    name: 'id',
-                                    type: 'uuid',
-                                    isPrimary: true,
-                                    generationStrategy: 'uuid',
-                                    default: 'uuid_generate_v4()',
-                                },
-                                {
-                                    name: 'value',
-                                    type: 'varchar',
-                                },
-                                {
-                                    name: 'message',
-                                    type: 'varchar',
-                                    isNullable: true,
-                                },
-                                {
-                                    name: 'created_at',
-                                    type: 'timestamp',
-                                    default: 'now()',
-                                },
-                            ],
-                        }))];
+                    case 0: return [4 /*yield*/, queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')];
                     case 1:
+                        _a.sent();
+                        return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
+                                name: 'transactions',
+                                columns: [
+                                    {
+                                        name: 'sender_keyFree',
+                                        type: 'varchar',
+                                        isPrimary: true,
+                                    },
+                                    {
+                                        name: 'addressee_keyFree',
+                                        type: 'varchar',
+                                        isPrimary: true,
+                                    },
+                                    {
+                                        name: 'id',
+                                        type: 'uuid',
+                                        isPrimary: true,
+                                        generationStrategy: 'uuid',
+                                        default: 'uuid_generate_v4()',
+                                    },
+                                    {
+                                        name: 'value',
+                                        type: 'varchar',
+                                    },
+                                    {
+                                        name: 'message',
+                                        type: 'varchar',
+                                        isNullable: true,
+                                    },
+                                    {
+                                        name: 'created_at',
+                                        type: 'timestamp',
+                                        default: 'now()',
+                                    },
+                                ],
+                            }))];
+                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
