@@ -4,7 +4,6 @@ import {
 
 export default class CreatedLogAccont1620515046249 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
     await queryRunner.createTable(
       new Table({
         name: 'internalmovement',

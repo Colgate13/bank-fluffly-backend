@@ -18,9 +18,11 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.2",
     "tsc": "^1.20150623.0",
     "typeorm": "^0.2.32",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "uuidv4": "^6.2.11"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

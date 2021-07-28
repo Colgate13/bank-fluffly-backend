@@ -44,55 +44,52 @@ var CreateAccont1620442752782 = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')];
+                    case 0: return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
+                            name: 'acconts',
+                            columns: [
+                                {
+                                    name: 'id',
+                                    type: 'uuid',
+                                    isPrimary: true,
+                                },
+                                {
+                                    name: 'accont_id',
+                                    type: 'uuid',
+                                    isPrimary: true,
+                                    generationStrategy: 'uuid',
+                                    default: 'uuid_generate_v4()',
+                                },
+                                {
+                                    name: 'interKey',
+                                    type: 'varchar',
+                                },
+                                {
+                                    name: 'keyFree',
+                                    type: 'varchar',
+                                    isUnique: true,
+                                },
+                                {
+                                    name: 'password',
+                                    type: 'varchar',
+                                },
+                                {
+                                    name: 'balance',
+                                    type: 'varchar',
+                                    isNullable: true,
+                                },
+                                {
+                                    name: 'created_at',
+                                    type: 'timestamp',
+                                    default: 'now()',
+                                },
+                                {
+                                    name: 'updated_at',
+                                    type: 'timestamp',
+                                    default: 'now()',
+                                },
+                            ],
+                        }))];
                     case 1:
-                        _a.sent();
-                        return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
-                                name: 'acconts',
-                                columns: [
-                                    {
-                                        name: 'id',
-                                        type: 'uuid',
-                                        isPrimary: true,
-                                    },
-                                    {
-                                        name: 'accont_id',
-                                        type: 'uuid',
-                                        isPrimary: true,
-                                        generationStrategy: 'uuid',
-                                        default: 'uuid_generate_v4()',
-                                    },
-                                    {
-                                        name: 'interKey',
-                                        type: 'varchar',
-                                    },
-                                    {
-                                        name: 'keyFree',
-                                        type: 'varchar',
-                                        isUnique: true,
-                                    },
-                                    {
-                                        name: 'password',
-                                        type: 'varchar',
-                                    },
-                                    {
-                                        name: 'balance',
-                                        type: 'varchar',
-                                        isNullable: true,
-                                    },
-                                    {
-                                        name: 'created_at',
-                                        type: 'timestamp',
-                                        default: 'now()',
-                                    },
-                                    {
-                                        name: 'updated_at',
-                                        type: 'timestamp',
-                                        default: 'now()',
-                                    },
-                                ],
-                            }))];
-                    case 2:
                         _a.sent();
                         return [4 /*yield*/, queryRunner.createForeignKey('acconts', new typeorm_1.TableForeignKey({
                                 name: 'UserAccont',
@@ -102,7 +99,7 @@ var CreateAccont1620442752782 = /** @class */ (function () {
                                 onDelete: 'SET NULL',
                                 onUpdate: 'CASCADE', //----
                             }))];
-                    case 3:
+                    case 2:
                         _a.sent();
                         return [2 /*return*/];
                 }
