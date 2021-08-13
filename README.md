@@ -46,24 +46,16 @@ For acess SQLlite(Data base) -> install  [DBeaver](https://dbeaver.io/)
 
 
 ## ApiRestFull documentation 
-- **`POST /users`**: A rota deve receber `name`, `email` e `password` dentro do corpo da requisição :
+- **`POST /users`**: A rota deve receber `name`, `email`, `password`  e `keyFree` O keyFree será usado para outros usuarios enviarem dinheiro para essa accont, dentro do corpo da requisição :
 ```json
 {
 	"name": "Gabriel Barros",
 	"email": "gabreilbarros13@gmail.com",
-	"password": "+5563984678935"
+	"password": "+5563984678935",
+  "keyFree": "181818"
 }
 ```
 
-- **`GET /users/listAll`**: Essa rota deve retornar todos os usuarios cadastrados, ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
-
-```json 
-{
-	"token": "123456789", 
-	"password": "84656505",
-	"id": "souAdmin"
-}
-```
 - **`POST /sessions`**: A rota deve receber  `email` e `password` dentro do corpo da requisição, Ela retora um Token :
 
 ```json
@@ -72,24 +64,7 @@ For acess SQLlite(Data base) -> install  [DBeaver](https://dbeaver.io/)
 	"password": "84656505"
 }
 ```
-- **`POST /acconts/create`**: A rota deve receber  `password`, `interKey` e `keyFree` dentro do corpo da requisição, O keyFree será usado para outros usuarios enviarem dinheiro para essa accont, password vai ser necessario para realizar depositos, retiradas e transações, esse password não precisa ser o mesmo do user :
 
-```json
-{
-	"password": "1305", 
-	"interKey": "84656505", 
-	"keyFree": "84656505"
-}
-```
-- **`GET acconts/listAll`**: Essa rota deve retornar todas as contas abertas, ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
-
-```json
-{
-	"token": "123456789", 
-	"password": "84656505",
-	"id": "souAdmin"
-}
-```
 - **`POST /acconts/deposity`**: A rota deve receber  `passwordAccont`e `value`, depositando valores na accont, podemos escolher qualquer valor :
 
 ```json
@@ -112,15 +87,7 @@ headers:
 name          value         
 Authorization Bearer `token retornado na rota sessions` 
 ```
-- **`GET /acconts/listAllInternalmovement `**: Essa rota deve retornar todas os depositos e saques, depositos são do tipo `true` e saques do tipo `false`  , ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
 
-```json PRECISA SER essa request para listar
-{
-	"token": "123456789", 
-	"password": "84656505",
-	"id": "souAdmin"
-}
-```
 
 - **`POST /acconts/transactions`**: A rota deve receber  `keyFree`,`password`, `value`, `message`  transferido o value para o accont que tiver a KeyFree indicada:
 
@@ -136,15 +103,6 @@ name          value
 Authorization Bearer `token retornado na rota sessions` 
 ```
 
-- **`GET /acconts/listAllTransactions  `**: Essa rota deve retornar todas as transações entre as contas, no retorno sender_keyFree é a keyFree que enviou o dinheiro, addressee_keyFree é a keyFree  que recebeu o dinheiro  , ROTA PARA TESTES, NÃO VAI EM PRODUÇÃO!!!, ela deve receber esse json no corpo da requisição para listar 
-
-```json PRECISA SER essa request para listar
-{
-	"token": "123456789", 
-	"password": "84656505",
-	"id": "souAdmin"
-}
-```
 
 ## License
 
