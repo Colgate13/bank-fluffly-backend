@@ -1,36 +1,38 @@
-import {
-  MigrationInterface, QueryRunner, Table, TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateAccont1620442752782 implements MigrationInterface {
+export default class CreateUserAccont1628819866201 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'acconts',
+        name: 'accontusers',
         columns: [
           {
             name: 'id',
-            type: 'uuid',
-            isPrimary: true,
-          },
-          {
-            name: 'accont_id',
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'interKey',
+            name: 'name',
             type: 'varchar',
           },
           {
-            name: 'keyFree',
+            name: 'email',
             type: 'varchar',
             isUnique: true,
           },
           {
+            name: 'avatar',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'password',
+            type: 'varchar',
+          },
+          {
+            name: 'key_free',
             type: 'varchar',
           },
           {
@@ -51,21 +53,9 @@ export default class CreateAccont1620442752782 implements MigrationInterface {
         ],
       }),
     );
-    await queryRunner.createForeignKey(
-      'acconts',
-      new TableForeignKey({
-        name: 'UserAccont', //----
-        columnNames: ['id'], //
-        referencedColumnNames: ['id'], //
-        referencedTableName: 'users', // users
-        onDelete: 'SET NULL', //
-        onUpdate: 'CASCADE', //----
-      }),
-    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('acconts', 'UserAccont');
-    await queryRunner.dropTable('acconts');
+    await queryRunner.dropTable('accontusers');
   }
 }

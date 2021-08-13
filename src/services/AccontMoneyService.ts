@@ -1,8 +1,8 @@
-import { getCustomRepository, getRepository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
-import Accont from '../models/Accont';
 import AppError from '../errors/AppError';
-import InternalmovementRepository from '../repositorys/InternalmovementRepository';
+import User from '../models/User';
+import LogAccontService from './LogAccontService';
 
 interface Request {// Tipagem dos tados que vamos receber
   id: string;
@@ -14,8 +14,8 @@ class AccontService {
   // eslint-disable-next-line class-methods-use-this
   public async deposity({
     id, password, value,
-  }: Request): Promise<Accont> {
-    const accontRepository = getRepository(Accont);
+  }: Request): Promise<User> {
+    const accontRepository = getRepository(User);
 
     const accontExists = await accontRepository.findOne({
       where: { id },
@@ -41,17 +41,23 @@ class AccontService {
     await accontRepository.save(accontExists);
 
     accontExists.password = 'null';
-    accontExists.interKey = 'null';
-    accontExists.id = 'null';
-    accontExists.keyFree = 'null';
+    accontExists.key_free = 'null';
+
+    const logAccontService = new LogAccontService();
+
+    await logAccontService.execute({
+      accont_id: accontExists.id,
+      type: true,
+      value: value.toString(),
+    });
 
     return accontExists;
   }
 
   public async withdraw({
     id, password, value,
-  }: Request): Promise<Accont> {
-    const accontRepository = getRepository(Accont);
+  }: Request): Promise<User> {
+    const accontRepository = getRepository(User);
 
     const accontExists = await accontRepository.findOne({
       where: { id },
@@ -81,23 +87,17 @@ class AccontService {
     await accontRepository.save(accontExists);
 
     accontExists.password = 'null';
-    accontExists.interKey = 'null';
-    accontExists.id = 'null';
-    accontExists.keyFree = 'null';
+    accontExists.key_free = 'null';
+
+    const logAccontService = new LogAccontService();
+
+    await logAccontService.execute({
+      accont_id: accontExists.id,
+      type: false,
+      value: value.toString(),
+    });
 
     return accontExists;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  async listAllAccontsInternalmovement() {
-    const accontRepository = getCustomRepository(InternalmovementRepository);
-
-    const checkFreeKeyExists = await accontRepository.find();
-
-    if (checkFreeKeyExists) {
-      return checkFreeKeyExists;
-    }
-    throw new AppError('Nothing acconts here', 400);
   }
 }
 

@@ -3,9 +3,9 @@ import { compare } from 'bcryptjs';
 import { uuid } from 'uuidv4';
 import AppError from '../errors/AppError';
 import TransactionsRepository from '../repositorys/TransactionsRepository';
-import Accont from '../models/Accont';
 
 import Transactions from '../models/Transactions';
+import User from '../models/User';
 
 interface Request {// Tipagem dos tados que vamos receber
   sender_id: string;
@@ -28,15 +28,15 @@ class TransactionsService {
     keyFree,
     password,
     value,
-  }: Request): Promise<Accont> {
-    const accontRepository = getRepository(Accont);
+  }: Request): Promise<User> {
+    const accontRepository = getRepository(User);
 
     const accontExistsSender_id = await accontRepository.findOne({
       where: { id: sender_id },
     });
 
     const accontExistsfreeKey = await accontRepository.findOne({
-      where: { keyFree },
+      where: { key_free: keyFree },
     });
 
     if (!accontExistsSender_id) {
@@ -60,7 +60,7 @@ class TransactionsService {
       throw new AppError('You do not have is value', 401);
     }
 
-    if (accontExistsSender_id.keyFree === accontExistsfreeKey.keyFree) {
+    if (accontExistsSender_id.key_free === accontExistsfreeKey.key_free) {
       throw new AppError('You do not send for you', 401);
     }
 

@@ -7,6 +7,13 @@ export default class CreteTransactions1620520031705 implements MigrationInterfac
         name: 'transactions',
         columns: [
           {
+            name: 'id',
+            type: 'uuid',
+            isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
+          },
+          {
             name: 'sender_keyFree',
             type: 'varchar',
             isPrimary: true,
@@ -15,13 +22,6 @@ export default class CreteTransactions1620520031705 implements MigrationInterfac
             name: 'addressee_keyFree',
             type: 'varchar',
             isPrimary: true,
-          },
-          {
-            name: 'id',
-            type: 'uuid',
-            isPrimary: true,
-            generationStrategy: 'uuid',
-            default: 'uuid_generate_v4()',
           },
           {
             name: 'value',

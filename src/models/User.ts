@@ -4,7 +4,7 @@ import {
 
 // KISS -> Keep It Simple & Stupid
 
-@Entity('users')
+@Entity('accontusers')
 class Users {
   @PrimaryColumn('uuid')
   id: string;
@@ -20,6 +20,12 @@ class Users {
 
   @Column()
   avatar: string;
+
+  @Column()
+  key_free: string;
+
+  @Column()
+  balance: string;
 
   @CreateDateColumn()
   // eslint-disable-next-line camelcase

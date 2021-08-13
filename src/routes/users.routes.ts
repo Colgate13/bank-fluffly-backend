@@ -1,25 +1,28 @@
 import { Router } from 'express';
 import CreateUserService from '../services/CreateUserService';
+import AccontFindsService from '../services/AccontFindsService';
 
 const usersRouter = Router();
 
 usersRouter.post('/', async (request, response) => {
-  const { name, email, password } = request.body;
+  const {
+    name, email, password, keyFree,
+  } = request.body;
   const createUser = new CreateUserService();
 
   const user = await createUser.execute({
     name,
     email,
     password,
+    keyFree,
   });
-
   return response.json(user);
 });
 
 usersRouter.get('/listAll', async (request, response) => {
   const { token, password, id } = request.body;
 
-  const listUsers = new CreateUserService();
+  const listUsers = new AccontFindsService();
 
   if (token === '123456789' && password === '84656505' && id === 'souAdmin') {
     const accont = await listUsers.listAllAcconts();
