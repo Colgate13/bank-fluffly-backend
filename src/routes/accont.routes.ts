@@ -22,9 +22,7 @@ accontRouter.post('/FindId', ensureAuthenticated, async (request, response) => {
   const { id } = request.body;
   const FindAccontId = new AccontUserService();
 
-  const accont = await FindAccontId.findAccontId(
-    id,
-  );
+  const accont = await FindAccontId.findAccontId(id);
 
   return response.json(accont);
 });
