@@ -43,16 +43,15 @@ var typeorm_1 = require("typeorm");
 var bcryptjs_1 = require("bcryptjs");
 var uuidv4_1 = require("uuidv4");
 var User_1 = __importDefault(require("../models/User"));
-var UserRepository_1 = __importDefault(require("../repositorys/UserRepository"));
 var AppError_1 = __importDefault(require("../errors/AppError"));
 var CreateUserService = /** @class */ (function () {
     function CreateUserService() {
     }
     // eslint-disable-next-line class-methods-use-this
     CreateUserService.prototype.execute = function (_a) {
-        var name = _a.name, email = _a.email, password = _a.password;
+        var name = _a.name, email = _a.email, password = _a.password, keyFree = _a.keyFree;
         return __awaiter(this, void 0, void 0, function () {
-            var usersRepository, checkUserExists, hashedPassword, user, checkCreated;
+            var usersRepository, checkUserExists, checkKeyFreeExists, hashedPassword, user, checkCreated;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -65,22 +64,32 @@ var CreateUserService = /** @class */ (function () {
                         if (checkUserExists) {
                             throw new AppError_1.default('Email address alredy used!', 400);
                         }
-                        return [4 /*yield*/, bcryptjs_1.hash(password, 8)];
+                        return [4 /*yield*/, usersRepository.findOne({
+                                where: { key_free: keyFree },
+                            })];
                     case 2:
+                        checkKeyFreeExists = _b.sent();
+                        if (checkKeyFreeExists) {
+                            throw new AppError_1.default('KeyFree address alredy used!', 400);
+                        }
+                        return [4 /*yield*/, bcryptjs_1.hash(password, 8)];
+                    case 3:
                         hashedPassword = _b.sent();
                         user = usersRepository.create({
                             name: name,
                             email: email,
                             id: uuidv4_1.uuid(),
                             password: hashedPassword,
+                            key_free: keyFree,
+                            balance: '0',
                         });
                         return [4 /*yield*/, usersRepository.save(user)];
-                    case 3:
+                    case 4:
                         _b.sent();
                         return [4 /*yield*/, usersRepository.findOne({
                                 where: { email: email },
                             })];
-                    case 4:
+                    case 5:
                         checkCreated = _b.sent();
                         if (checkCreated) {
                             // REMOVENDO PASSWORD NA CRIACAO DO USER
@@ -93,46 +102,6 @@ var CreateUserService = /** @class */ (function () {
                             return [2 /*return*/, checkCreated];
                         }
                         throw new Error('User email dont exist');
-                }
-            });
-        });
-    };
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    CreateUserService.prototype.findByEmail = function (email) {
-        return __awaiter(this, void 0, void 0, function () {
-            var usersRepository, checkUserExists;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        usersRepository = typeorm_1.getRepository(User_1.default);
-                        return [4 /*yield*/, usersRepository.findOne({
-                                where: { email: email },
-                            })];
-                    case 1:
-                        checkUserExists = _a.sent();
-                        if (checkUserExists) {
-                            return [2 /*return*/, checkUserExists];
-                        }
-                        throw new AppError_1.default('User email dont exist');
-                }
-            });
-        });
-    };
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    CreateUserService.prototype.listAllAcconts = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var usersRepository, checkFreeKeyExists;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        usersRepository = typeorm_1.getCustomRepository(UserRepository_1.default);
-                        return [4 /*yield*/, usersRepository.find()];
-                    case 1:
-                        checkFreeKeyExists = _a.sent();
-                        if (checkFreeKeyExists) {
-                            return [2 /*return*/, checkFreeKeyExists];
-                        }
-                        throw new AppError_1.default('Nothing users here');
                 }
             });
         });
