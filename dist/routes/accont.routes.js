@@ -40,39 +40,46 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
-var CreateAccontService_1 = __importDefault(require("../services/CreateAccontService"));
-var AccontService_1 = __importDefault(require("../services/AccontService"));
-var LogAccontService_1 = __importDefault(require("../services/LogAccontService"));
+var AccontFindsService_1 = __importDefault(require("../services/AccontFindsService"));
+var AccontMoneyService_1 = __importDefault(require("../services/AccontMoneyService"));
 var TransactionsService_1 = __importDefault(require("../services/TransactionsService"));
 var ensureAuthenticated_1 = __importDefault(require("../middlewares/ensureAuthenticated"));
 var accontRouter = express_1.Router();
-accontRouter.post('/create', ensureAuthenticated_1.default, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, password, interKey, keyFree, createaccont, accont;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+accontRouter.post('/FindkeyFree', ensureAuthenticated_1.default, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
+    var keyFree, FindAccontKeyFree, accont;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _a = request.body, password = _a.password, interKey = _a.interKey, keyFree = _a.keyFree;
-                createaccont = new CreateAccontService_1.default();
-                return [4 /*yield*/, createaccont.execute({
-                        idUser: request.user.id,
-                        interKey: interKey,
-                        keyFree: keyFree,
-                        password: password,
-                    })];
+                keyFree = request.body.keyFree;
+                FindAccontKeyFree = new AccontFindsService_1.default();
+                return [4 /*yield*/, FindAccontKeyFree.findAccontKeyFree(keyFree)];
             case 1:
-                accont = _b.sent();
+                accont = _a.sent();
+                return [2 /*return*/, response.json(accont)];
+        }
+    });
+}); });
+accontRouter.post('/FindId', ensureAuthenticated_1.default, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, FindAccontId, accont;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = request.body.id;
+                FindAccontId = new AccontFindsService_1.default();
+                return [4 /*yield*/, FindAccontId.findAccontId(id)];
+            case 1:
+                accont = _a.sent();
                 return [2 /*return*/, response.json(accont)];
         }
     });
 }); });
 accontRouter.post('/deposity', ensureAuthenticated_1.default, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, passwordAccont, value, createAccont, logAccontService, accont;
+    var _a, passwordAccont, value, createAccont, accont;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _a = request.body, passwordAccont = _a.passwordAccont, value = _a.value;
-                createAccont = new AccontService_1.default();
-                logAccontService = new LogAccontService_1.default();
+                createAccont = new AccontMoneyService_1.default();
                 return [4 /*yield*/, createAccont.deposity({
                         id: request.user.id,
                         password: passwordAccont,
@@ -80,25 +87,17 @@ accontRouter.post('/deposity', ensureAuthenticated_1.default, function (request,
                     })];
             case 1:
                 accont = _b.sent();
-                return [4 /*yield*/, logAccontService.execute({
-                        accont_id: accont.accont_id,
-                        type: true,
-                        value: value,
-                    })];
-            case 2:
-                _b.sent();
                 return [2 /*return*/, response.json(accont)];
         }
     });
 }); });
 accontRouter.post('/withdraw', ensureAuthenticated_1.default, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, passwordAccont, value, createAccont, logAccontService, accont;
+    var _a, passwordAccont, value, createAccont, accont;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _a = request.body, passwordAccont = _a.passwordAccont, value = _a.value;
-                createAccont = new AccontService_1.default();
-                logAccontService = new LogAccontService_1.default();
+                createAccont = new AccontMoneyService_1.default();
                 return [4 /*yield*/, createAccont.withdraw({
                         id: request.user.id,
                         password: passwordAccont,
@@ -106,13 +105,6 @@ accontRouter.post('/withdraw', ensureAuthenticated_1.default, function (request,
                     })];
             case 1:
                 accont = _b.sent();
-                return [4 /*yield*/, logAccontService.execute({
-                        accont_id: accont.accont_id,
-                        type: false,
-                        value: value,
-                    })];
-            case 2:
-                _b.sent();
                 return [2 /*return*/, response.json(accont)];
         }
     });
@@ -133,7 +125,7 @@ accontRouter.post('/transactions', ensureAuthenticated_1.default, function (requ
             case 1:
                 transaction = _b.sent();
                 return [4 /*yield*/, transactionsService.log({
-                        sender_keyFree: transaction.keyFree,
+                        sender_keyFree: transaction.key_free,
                         keyFree: keyFree,
                         message: message,
                         value: value,
@@ -141,72 +133,6 @@ accontRouter.post('/transactions', ensureAuthenticated_1.default, function (requ
             case 2:
                 transactionLog = _b.sent();
                 return [2 /*return*/, response.json(transactionLog)];
-        }
-    });
-}); });
-accontRouter.get('/listAllInternalmovement', function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, token, password, id, findAll, accont, fakeList;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = request.body, token = _a.token, password = _a.password, id = _a.id;
-                findAll = new AccontService_1.default();
-                if (!(token === '123456789' && password === '84656505' && id === 'souAdmin')) return [3 /*break*/, 2];
-                return [4 /*yield*/, findAll.listAllAccontsInternalmovement()];
-            case 1:
-                accont = _b.sent();
-                return [2 /*return*/, response.json(accont)];
-            case 2:
-                fakeList = {
-                    Name: 'Banco Colgate',
-                    Staff: 'Colgate ',
-                    by: 'Master Legends Banking',
-                };
-                return [2 /*return*/, response.json(fakeList)];
-        }
-    });
-}); });
-accontRouter.get('/listAll', function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, token, password, id, findAll, accont, fakeList;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = request.body, token = _a.token, password = _a.password, id = _a.id;
-                findAll = new CreateAccontService_1.default();
-                if (!(token === '123456789' && password === '84656505' && id === 'souAdmin')) return [3 /*break*/, 2];
-                return [4 /*yield*/, findAll.listAllAcconts()];
-            case 1:
-                accont = _b.sent();
-                return [2 /*return*/, response.json(accont)];
-            case 2:
-                fakeList = {
-                    Name: 'Banco Colgate',
-                    Staff: 'Colgate ',
-                    by: 'Master Legends Banking',
-                };
-                return [2 /*return*/, response.json(fakeList)];
-        }
-    });
-}); });
-accontRouter.get('/listAllTransactions', function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, token, password, id, findAll, accont, fakeList;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                _a = request.body, token = _a.token, password = _a.password, id = _a.id;
-                findAll = new TransactionsService_1.default();
-                if (!(token === '123456789' && password === '84656505' && id === 'souAdmin')) return [3 /*break*/, 2];
-                return [4 /*yield*/, findAll.listAllTransactions()];
-            case 1:
-                accont = _b.sent();
-                return [2 /*return*/, response.json(accont)];
-            case 2:
-                fakeList = {
-                    Name: 'Banco Colgate',
-                    Staff: 'Colgate ',
-                    by: 'Master Legends Banking',
-                };
-                return [2 /*return*/, response.json(fakeList)];
         }
     });
 }); });

@@ -41,18 +41,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
 var CreateUserService_1 = __importDefault(require("../services/CreateUserService"));
+var AccontFindsService_1 = __importDefault(require("../services/AccontFindsService"));
 var usersRouter = express_1.Router();
 usersRouter.post('/', function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, name, email, password, createUser, user;
+    var _a, name, email, password, keyFree, createUser, user;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = request.body, name = _a.name, email = _a.email, password = _a.password;
+                _a = request.body, name = _a.name, email = _a.email, password = _a.password, keyFree = _a.keyFree;
                 createUser = new CreateUserService_1.default();
                 return [4 /*yield*/, createUser.execute({
                         name: name,
                         email: email,
                         password: password,
+                        keyFree: keyFree,
                     })];
             case 1:
                 user = _b.sent();
@@ -66,7 +68,7 @@ usersRouter.get('/listAll', function (request, response) { return __awaiter(void
         switch (_b.label) {
             case 0:
                 _a = request.body, token = _a.token, password = _a.password, id = _a.id;
-                listUsers = new CreateUserService_1.default();
+                listUsers = new AccontFindsService_1.default();
                 if (!(token === '123456789' && password === '84656505' && id === 'souAdmin')) return [3 /*break*/, 2];
                 return [4 /*yield*/, listUsers.listAllAcconts()];
             case 1:

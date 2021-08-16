@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';// PRECISA FICAR LOGO ABAIXO DO EXPRESS
 
@@ -8,6 +9,8 @@ import './database';
 
 const PORT = process.env.PORT || 3131;
 const app = express();
+
+dotenv.config();
 
 app.use(cors());
 app.use(express.json());

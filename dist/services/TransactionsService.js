@@ -44,8 +44,8 @@ var bcryptjs_1 = require("bcryptjs");
 var uuidv4_1 = require("uuidv4");
 var AppError_1 = __importDefault(require("../errors/AppError"));
 var TransactionsRepository_1 = __importDefault(require("../repositorys/TransactionsRepository"));
-var Accont_1 = __importDefault(require("../models/Accont"));
 var Transactions_1 = __importDefault(require("../models/Transactions"));
+var User_1 = __importDefault(require("../models/User"));
 var TransactionsService = /** @class */ (function () {
     function TransactionsService() {
     }
@@ -57,14 +57,14 @@ var TransactionsService = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        accontRepository = typeorm_1.getRepository(Accont_1.default);
+                        accontRepository = typeorm_1.getRepository(User_1.default);
                         return [4 /*yield*/, accontRepository.findOne({
                                 where: { id: sender_id },
                             })];
                     case 1:
                         accontExistsSender_id = _b.sent();
                         return [4 /*yield*/, accontRepository.findOne({
-                                where: { keyFree: keyFree },
+                                where: { key_free: keyFree },
                             })];
                     case 2:
                         accontExistsfreeKey = _b.sent();
@@ -86,7 +86,7 @@ var TransactionsService = /** @class */ (function () {
                         if (Number(accontExistsSender_id.balance) <= value) {
                             throw new AppError_1.default('You do not have is value', 401);
                         }
-                        if (accontExistsSender_id.keyFree === accontExistsfreeKey.keyFree) {
+                        if (accontExistsSender_id.key_free === accontExistsfreeKey.key_free) {
                             throw new AppError_1.default('You do not send for you', 401);
                         }
                         balanceSender = (Number(accontExistsSender_id.balance));

@@ -37,15 +37,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
-var CreateUsers1620341476234 = /** @class */ (function () {
-    function CreateUsers1620341476234() {
+var CreateUserAccont1628819866201 = /** @class */ (function () {
+    function CreateUserAccont1628819866201() {
     }
-    CreateUsers1620341476234.prototype.up = function (queryRunner) {
+    CreateUserAccont1628819866201.prototype.up = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, queryRunner.createTable(new typeorm_1.Table({
-                            name: 'users',
+                            name: 'accontusers',
                             columns: [
                                 {
                                     name: 'id',
@@ -73,6 +73,15 @@ var CreateUsers1620341476234 = /** @class */ (function () {
                                     type: 'varchar',
                                 },
                                 {
+                                    name: 'key_free',
+                                    type: 'varchar',
+                                },
+                                {
+                                    name: 'balance',
+                                    type: 'varchar',
+                                    isNullable: true,
+                                },
+                                {
                                     name: 'created_at',
                                     type: 'timestamp',
                                     default: 'now()',
@@ -91,12 +100,11 @@ var CreateUsers1620341476234 = /** @class */ (function () {
             });
         });
     };
-    // eslint-disable-next-line class-methods-use-this
-    CreateUsers1620341476234.prototype.down = function (queryRunner) {
+    CreateUserAccont1628819866201.prototype.down = function (queryRunner) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, queryRunner.dropTable('users')];
+                    case 0: return [4 /*yield*/, queryRunner.dropTable('accontusers')];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -104,6 +112,6 @@ var CreateUsers1620341476234 = /** @class */ (function () {
             });
         });
     };
-    return CreateUsers1620341476234;
+    return CreateUserAccont1628819866201;
 }());
-exports.default = CreateUsers1620341476234;
+exports.default = CreateUserAccont1628819866201;
