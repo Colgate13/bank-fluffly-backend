@@ -1,18 +1,13 @@
-console.log(`process.env.DATABASE = ${process.env.DATABASE}`);
-console.log(`process.env.ENTITIES = ${process.env.ENTITIES}`);
-console.log(`process.env.MIGRATIONS = ${process.env.MIGRATIONS}`);
-console.log(`process.env.CLIMIGRATIONSDIR = ${process.env.CLIMIGRATIONSDIR}`);
-
 module.exports = {
   "type": "sqlite",
-  "database": process.env.DATABASE,
+  "database": "./dist/database/database.sqlite",
   "entities": [
-     process.env.ENTITIES,
+     "./dist/models/**.js",
   ],
   "migrations": [
-     process.env.MIGRATIONS
+    "./dist/database/migrations/**.js"
   ],
   "cli": {
-      "migrationsDir": process.env.CLIMIGRATIONSDIR
+      "migrationsDir": "./dist/database/migrations"
   }
 }
