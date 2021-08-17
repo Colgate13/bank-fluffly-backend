@@ -18,10 +18,14 @@ class CreateUserService {
     name, email, password, keyFree,
   }: Request): Promise<User> {
     const usersRepository = getRepository(User);
-
+try{
+  
     const checkUserExists = await usersRepository.findOne({
       where: { email },
     });
+}catch(err){
+  console.log(err);
+}
     if (checkUserExists) {
       throw new AppError('Email address alredy used!', 400);
     }
