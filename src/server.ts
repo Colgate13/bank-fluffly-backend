@@ -25,6 +25,14 @@ app.use((err: Error, request: Request, response: Response, _next: NextFunction) 
       message: err.message,
     });
   }
+  
+  
+  // Se a mensagem não for conhecida, ou seja, não usamos o AppError, ele retorna Erro internal
+  // statusCode 500
+  return response.status(500).json({
+    status: 'error',
+    message: 'Internal server error',
+  });
 });
 
 app.listen(PORT, () => console.log(`🐱‍👤> Server running! 🧛‍♀️ ${PORT}`));
