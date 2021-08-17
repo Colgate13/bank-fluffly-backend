@@ -9,13 +9,16 @@ usersRouter.post('/', async (request, response) => {
     name, email, password, keyFree,
   } = request.body;
   const createUser = new CreateUserService();
-
+try{
   const user = await createUser.execute({
     name,
     email,
     password,
     keyFree,
   });
+}catch(error){
+ console.log(error); 
+}
   return response.json(user);
 });
 
