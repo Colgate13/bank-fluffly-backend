@@ -9,8 +9,9 @@ usersRouter.post('/', async (request, response) => {
     name, email, password, keyFree,
   } = request.body;
   const createUser = new CreateUserService();
+  let user;
 try{
-  const user = await createUser.execute({
+  user = await createUser.execute({
     name,
     email,
     password,
