@@ -10,4 +10,6 @@ routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRoutes);
 routes.use('/acconts', accontsRoutes);
 
+routes.use('/logs/accont', accontsRoutes);
+
 export default routes;

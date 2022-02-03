@@ -1,8 +1,7 @@
-import { getCustomRepository, getRepository } from 'typeorm';
+import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
 import { uuid } from 'uuidv4';
 import AppError from '../errors/AppError';
-import TransactionsRepository from '../repositorys/TransactionsRepository';
 
 import Transactions from '../models/Transactions';
 import User from '../models/User';
@@ -105,16 +104,41 @@ class TransactionsService {
     return transaction;
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  async listAllTransactions() {
-    const transactionsRepository = getCustomRepository(TransactionsRepository);
+  // eslint-disable-next-line class-methods-use-this
+  public async search(
+    accont_id
+      : string): Promise<any> {
 
-    const checkFreeKeyExists = await transactionsRepository.find();
+    const userAccontRepository = getRepository(User);
 
-    if (checkFreeKeyExists) {
-      return checkFreeKeyExists;
+    const user = await userAccontRepository.findOne({
+      where: { id: accont_id },
+    });
+
+    if (!user) {
+      throw new AppError('User dont exist');
     }
-    throw new AppError('Nothing acconts here', 400);
+
+    const logAccontRepository = getRepository(Transactions);
+
+    const dataSend = await logAccontRepository.find({
+      where: [
+        { sender_keyFree: user.key_free },
+        { addressee_keyFree: user.key_free },
+      ],
+    });
+
+    if (!dataSend) {
+      throw new AppError('dont exist transactions');
+    }
+
+    var obj: any = {};
+
+    dataSend.forEach(log => {
+      obj[log.id] = log;
+    });
+
+    return obj;
   }
 }
 
