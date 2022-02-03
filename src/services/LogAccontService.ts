@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 
 import { uuid } from 'uuidv4';
+import AppError from '../errors/AppError';
 
 import LogTrade from '../models/Internalmovement';
 
@@ -27,6 +28,30 @@ class LogAccontService {
     logAccontRepository.save(log);
 
     return log;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public async search(
+    accont_id
+      : string): Promise<any> {
+    const logAccontRepository = getRepository(LogTrade);
+
+    const checkUserExists = await logAccontRepository.find({
+      where: { accont_id },
+    });
+
+    if (!checkUserExists) {
+      throw new AppError('User email dont exist');
+    }
+
+    var obj: any = {};
+
+    checkUserExists.forEach(log => {
+      obj[log.id] = log;
+    });
+
+    return obj;
+
   }
 }
 
