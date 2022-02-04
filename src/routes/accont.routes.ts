@@ -77,7 +77,7 @@ accontRouter.post('/transactions', ensureAuthenticated, async (request, response
   return response.json(transactionLog);
 });
 
-accontRouter.post('/logs/internal', ensureAuthenticated, async (request, response) => {
+accontRouter.get('/logs/internal', ensureAuthenticated, async (request, response) => {
 
   const logAccontService = new LogAccontService();
   // const logTransactionsService = new LogTransactionsService();
@@ -86,7 +86,7 @@ accontRouter.post('/logs/internal', ensureAuthenticated, async (request, respons
   return response.json(transaction);
 });
 
-accontRouter.post('/logs/transactions', ensureAuthenticated, async (request, response) => {
+accontRouter.get('/logs/transactions', ensureAuthenticated, async (request, response) => {
 
   const transactionsService = new TransactionsService();
   // const logTransactionsService = new LogTransactionsService();
