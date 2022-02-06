@@ -91,12 +91,20 @@ class TransactionsService {
   }: RequestLog): Promise<Transactions> {
     const transactionsRepository = getRepository(Transactions);
 
+    let type: boolean;
+    if (sender_keyFree === keyFree) {
+      type = true;
+    } else {
+      type = false;
+    }
+
     const transaction = transactionsRepository.create({
       id: uuid(),
       sender_keyFree,
       addressee_keyFree: keyFree,
       message,
       value: value.toString(),
+      type,
     });
 
     transactionsRepository.save(transaction);
@@ -107,8 +115,8 @@ class TransactionsService {
   // eslint-disable-next-line class-methods-use-this
   public async search(
     accont_id
-      : string): Promise<any> {
-
+      : string,
+  ): Promise<any> {
     const userAccontRepository = getRepository(User);
 
     const user = await userAccontRepository.findOne({
@@ -132,13 +140,7 @@ class TransactionsService {
       throw new AppError('dont exist transactions');
     }
 
-    var obj: any = {};
-
-    dataSend.forEach(log => {
-      obj[log.id] = log;
-    });
-
-    return obj;
+    return dataSend;
   }
 }
 

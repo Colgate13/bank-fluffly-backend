@@ -77,8 +77,7 @@ accontRouter.post('/transactions', ensureAuthenticated, async (request, response
   return response.json(transactionLog);
 });
 
-accontRouter.post('/logs/internal', ensureAuthenticated, async (request, response) => {
-
+accontRouter.get('/logs/internal', ensureAuthenticated, async (request, response) => {
   const logAccontService = new LogAccontService();
   // const logTransactionsService = new LogTransactionsService();
   const transaction = await logAccontService.search(request.user.id);
@@ -86,13 +85,24 @@ accontRouter.post('/logs/internal', ensureAuthenticated, async (request, respons
   return response.json(transaction);
 });
 
-accontRouter.post('/logs/transactions', ensureAuthenticated, async (request, response) => {
-
+accontRouter.get('/logs/transactions', ensureAuthenticated, async (request, response) => {
   const transactionsService = new TransactionsService();
   // const logTransactionsService = new LogTransactionsService();
   const transaction = await transactionsService.search(request.user.id);
 
   return response.json(transaction);
+});
+
+accontRouter.get('/logs/all', ensureAuthenticated, async (request, response) => {
+  const transactionsService = new TransactionsService();
+  // const logTransactionsService = new LogTransactionsService();
+  const transaction = await transactionsService.search(request.user.id);
+
+  const logAccontService = new LogAccontService();
+  // const logTransactionsService = new LogTransactionsService();
+  const internal = await logAccontService.search(request.user.id);
+
+  return response.json({ transaction, internal });
 });
 
 export default accontRouter;

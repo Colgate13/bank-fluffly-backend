@@ -21,6 +21,9 @@ class Transactions {
   @Column()
   message: string;
 
+  @Column()
+  type: boolean;
+
   @CreateDateColumn()
   // eslint-disable-next-line camelcase
   created_at: Date;

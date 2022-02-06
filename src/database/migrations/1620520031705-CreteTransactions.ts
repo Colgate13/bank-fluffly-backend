@@ -33,6 +33,10 @@ export default class CreteTransactions1620520031705 implements MigrationInterfac
             isNullable: true,
           },
           {
+            name: 'type',
+            type: 'boolean',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
