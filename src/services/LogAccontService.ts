@@ -33,7 +33,8 @@ class LogAccontService {
   // eslint-disable-next-line class-methods-use-this
   public async search(
     accont_id
-      : string): Promise<any> {
+      : string,
+  ): Promise<any> {
     const logAccontRepository = getRepository(LogTrade);
 
     const checkUserExists = await logAccontRepository.find({
@@ -44,14 +45,7 @@ class LogAccontService {
       throw new AppError('User email dont exist');
     }
 
-    var obj: any = {};
-
-    checkUserExists.forEach(log => {
-      obj[log.id] = log;
-    });
-
-    return obj;
-
+    return checkUserExists;
   }
 }
 

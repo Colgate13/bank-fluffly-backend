@@ -95,4 +95,16 @@ accontRouter.get('/logs/transactions', ensureAuthenticated, async (request, resp
   return response.json(transaction);
 });
 
+accontRouter.get('/logs/all', ensureAuthenticated, async (request, response) => {
+  const transactionsService = new TransactionsService();
+  // const logTransactionsService = new LogTransactionsService();
+  const transaction = await transactionsService.search(request.user.id);
+
+  const logAccontService = new LogAccontService();
+  // const logTransactionsService = new LogTransactionsService();
+  const internal = await logAccontService.search(request.user.id);
+
+  return response.json({ transaction, internal });
+});
+
 export default accontRouter;
