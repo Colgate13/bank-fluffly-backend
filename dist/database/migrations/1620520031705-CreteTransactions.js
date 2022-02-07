@@ -74,6 +74,10 @@ var CreteTransactions1620520031705 = /** @class */ (function () {
                                     isNullable: true,
                                 },
                                 {
+                                    name: 'type',
+                                    type: 'boolean',
+                                },
+                                {
                                     name: 'created_at',
                                     type: 'timestamp',
                                     default: 'now()',

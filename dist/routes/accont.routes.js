@@ -44,6 +44,7 @@ var AccontFindsService_1 = __importDefault(require("../services/AccontFindsServi
 var AccontMoneyService_1 = __importDefault(require("../services/AccontMoneyService"));
 var TransactionsService_1 = __importDefault(require("../services/TransactionsService"));
 var ensureAuthenticated_1 = __importDefault(require("../middlewares/ensureAuthenticated"));
+var LogAccontService_1 = __importDefault(require("../services/LogAccontService"));
 var accontRouter = express_1.Router();
 accontRouter.post('/FindkeyFree', ensureAuthenticated_1.default, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
     var keyFree, FindAccontKeyFree, accont;
@@ -133,6 +134,49 @@ accontRouter.post('/transactions', ensureAuthenticated_1.default, function (requ
             case 2:
                 transactionLog = _b.sent();
                 return [2 /*return*/, response.json(transactionLog)];
+        }
+    });
+}); });
+accontRouter.get('/logs/internal', ensureAuthenticated_1.default, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
+    var logAccontService, transaction;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                logAccontService = new LogAccontService_1.default();
+                return [4 /*yield*/, logAccontService.search(request.user.id)];
+            case 1:
+                transaction = _a.sent();
+                return [2 /*return*/, response.json(transaction)];
+        }
+    });
+}); });
+accontRouter.get('/logs/transactions', ensureAuthenticated_1.default, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
+    var transactionsService, transaction;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                transactionsService = new TransactionsService_1.default();
+                return [4 /*yield*/, transactionsService.search(request.user.id)];
+            case 1:
+                transaction = _a.sent();
+                return [2 /*return*/, response.json(transaction)];
+        }
+    });
+}); });
+accontRouter.get('/logs/all', ensureAuthenticated_1.default, function (request, response) { return __awaiter(void 0, void 0, void 0, function () {
+    var transactionsService, transaction, logAccontService, internal;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                transactionsService = new TransactionsService_1.default();
+                return [4 /*yield*/, transactionsService.search(request.user.id)];
+            case 1:
+                transaction = _a.sent();
+                logAccontService = new LogAccontService_1.default();
+                return [4 /*yield*/, logAccontService.search(request.user.id)];
+            case 2:
+                internal = _a.sent();
+                return [2 /*return*/, response.json({ transaction: transaction, internal: internal })];
         }
     });
 }); });

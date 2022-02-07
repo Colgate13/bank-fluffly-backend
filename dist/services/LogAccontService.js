@@ -41,6 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var uuidv4_1 = require("uuidv4");
+var AppError_1 = __importDefault(require("../errors/AppError"));
 var Internalmovement_1 = __importDefault(require("../models/Internalmovement"));
 var LogAccontService = /** @class */ (function () {
     function LogAccontService() {
@@ -60,6 +61,27 @@ var LogAccontService = /** @class */ (function () {
                 });
                 logAccontRepository.save(log);
                 return [2 /*return*/, log];
+            });
+        });
+    };
+    // eslint-disable-next-line class-methods-use-this
+    LogAccontService.prototype.search = function (accont_id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var logAccontRepository, checkUserExists;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        logAccontRepository = typeorm_1.getRepository(Internalmovement_1.default);
+                        return [4 /*yield*/, logAccontRepository.find({
+                                where: { accont_id: accont_id },
+                            })];
+                    case 1:
+                        checkUserExists = _a.sent();
+                        if (!checkUserExists) {
+                            throw new AppError_1.default('User email dont exist');
+                        }
+                        return [2 /*return*/, checkUserExists];
+                }
             });
         });
     };

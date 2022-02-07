@@ -43,7 +43,6 @@ var typeorm_1 = require("typeorm");
 var bcryptjs_1 = require("bcryptjs");
 var uuidv4_1 = require("uuidv4");
 var AppError_1 = __importDefault(require("../errors/AppError"));
-var TransactionsRepository_1 = __importDefault(require("../repositorys/TransactionsRepository"));
 var Transactions_1 = __importDefault(require("../models/Transactions"));
 var User_1 = __importDefault(require("../models/User"));
 var TransactionsService = /** @class */ (function () {
@@ -115,36 +114,57 @@ var TransactionsService = /** @class */ (function () {
     TransactionsService.prototype.log = function (_a) {
         var sender_keyFree = _a.sender_keyFree, keyFree = _a.keyFree, message = _a.message, value = _a.value;
         return __awaiter(this, void 0, void 0, function () {
-            var transactionsRepository, transaction;
+            var transactionsRepository, type, transaction;
             return __generator(this, function (_b) {
                 transactionsRepository = typeorm_1.getRepository(Transactions_1.default);
+                if (sender_keyFree === keyFree) {
+                    type = true;
+                }
+                else {
+                    type = false;
+                }
                 transaction = transactionsRepository.create({
                     id: uuidv4_1.uuid(),
                     sender_keyFree: sender_keyFree,
                     addressee_keyFree: keyFree,
                     message: message,
                     value: value.toString(),
+                    type: type,
                 });
                 transactionsRepository.save(transaction);
                 return [2 /*return*/, transaction];
             });
         });
     };
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    TransactionsService.prototype.listAllTransactions = function () {
+    // eslint-disable-next-line class-methods-use-this
+    TransactionsService.prototype.search = function (accont_id) {
         return __awaiter(this, void 0, void 0, function () {
-            var transactionsRepository, checkFreeKeyExists;
+            var userAccontRepository, user, logAccontRepository, dataSend;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        transactionsRepository = typeorm_1.getCustomRepository(TransactionsRepository_1.default);
-                        return [4 /*yield*/, transactionsRepository.find()];
+                        userAccontRepository = typeorm_1.getRepository(User_1.default);
+                        return [4 /*yield*/, userAccontRepository.findOne({
+                                where: { id: accont_id },
+                            })];
                     case 1:
-                        checkFreeKeyExists = _a.sent();
-                        if (checkFreeKeyExists) {
-                            return [2 /*return*/, checkFreeKeyExists];
+                        user = _a.sent();
+                        if (!user) {
+                            throw new AppError_1.default('User dont exist');
                         }
-                        throw new AppError_1.default('Nothing acconts here', 400);
+                        logAccontRepository = typeorm_1.getRepository(Transactions_1.default);
+                        return [4 /*yield*/, logAccontRepository.find({
+                                where: [
+                                    { sender_keyFree: user.key_free },
+                                    { addressee_keyFree: user.key_free },
+                                ],
+                            })];
+                    case 2:
+                        dataSend = _a.sent();
+                        if (!dataSend) {
+                            throw new AppError_1.default('dont exist transactions');
+                        }
+                        return [2 /*return*/, dataSend];
                 }
             });
         });

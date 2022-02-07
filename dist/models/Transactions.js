@@ -35,6 +35,10 @@ var Transactions = /** @class */ (function () {
         __metadata("design:type", String)
     ], Transactions.prototype, "message", void 0);
     __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", Boolean)
+    ], Transactions.prototype, "type", void 0);
+    __decorate([
         typeorm_1.CreateDateColumn(),
         __metadata("design:type", Date)
     ], Transactions.prototype, "created_at", void 0);
